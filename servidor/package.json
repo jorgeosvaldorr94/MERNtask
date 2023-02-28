@@ -1,0 +1,32 @@
+{
+  "name": "merntaskservidor",
+  "version": "1.0.0",
+  "description": "MERN API para MERN TASK",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgeosvaldorr94/MERNtask.git"
+  },
+  "author": "Jorge Osvaldo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgeosvaldorr94/MERNtask/issues"
+  },
+  "homepage": "https://github.com/jorgeosvaldorr94/MERNtask#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.1"
+  }
+}
