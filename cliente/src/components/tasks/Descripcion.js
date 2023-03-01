@@ -20,7 +20,7 @@ const Descripcion = ({ etiqueta, onClose }) => {
         <div className="tituloD">{etiqueta}</div>
         <form onSubmit={handleSubmit}>
           <div className="campo-formD">
-            <label htmlFor="descripcion">Descripción</label>
+            <label htmlFor="descripcion"></label>
             <textarea
               id="descripcion"
               name="descripcion"

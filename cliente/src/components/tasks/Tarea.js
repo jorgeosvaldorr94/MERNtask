@@ -8,6 +8,10 @@ import AlertaEliminar from '../../context/alertas/AlertaEliminar';
 // Importar el componente para la Descripcion
 import Descripcion from './Descripcion';
 
+// Importar librerias para los iconos
+import { faEye, faGrillHot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Tarea = ({tarea}) => {
 
     //obtener la funcion del context de tarea
@@ -141,18 +145,22 @@ return (
 
       {!tareaseleccionada ? (
         <div className='acciones'>
+
+          <button type='button' className='btn btn-desc' onClick={() => setMostrarDescripcion(true)}>
+            <FontAwesomeIcon icon={faEye} />
+          </button>
+          
           <button type='button' className='btn btn-submit2 btn-primario' onClick={() => seleccionarTarea(tarea)}>
             Editar
           </button>
 
-          <button type='button' className='btn btn-secundario' onClick={() => tareaEliminar(tarea._id)}>
+          <button type='button' className='btn btn-secundario2' onClick={() => tareaEliminar(tarea._id)}>
             Eliminar
           </button>
           
-          <button type='button' className='btn btn-secundario' onClick={() => setMostrarDescripcion(true)}>
-            D
-          </button>
+
         </div>
+        
       ) : null}
 
       {mostrarDescripcion && <Descripcion etiqueta='Descripción' onClose={handleCloseDescripcion} />}

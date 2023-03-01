@@ -140,6 +140,13 @@ a {
 .btn-secundario:hover {
   background-color: rgb(237, 236, 236);
 }
+.btn-secundario2 {
+  background-color: rgb(225, 222, 222);
+  margin-left: 15px;
+}
+.btn-secundario2:hover {
+  background-color: rgb(237, 236, 236);
+}
 .btn-delete {
   background-color: rgb(241, 16, 16);
   color: #ffffff;
@@ -150,6 +157,9 @@ a {
 }
 .btn-submit:hover {
   background-color: var(--gris2);
+}
+.btn-submit2 {
+  margin-right: 15px;
 }
 .btn-submit2:hover {
   background-color: rgb(15, 16, 34);
@@ -166,6 +176,20 @@ a {
 .cerrar-sesion:hover {
   font-size: 18px;
   color: #ccc;
+}
+.btn-desc {
+  margin-top: 2rem;
+  font-family: var(--headingFont);
+  padding: 1.5rem;
+  font-size: 1.4;
+  font-weight: 400;
+  border-radius: .5rem;
+  border: none;
+  transition: background-color .3s ease;
+  background-color: darkkhaki;
+}
+.btn-desc:hover {
+  background-color: rgb(159, 153, 74);
 }
 
 @media (min-width: 768px) {
@@ -302,6 +326,9 @@ aside  {
 }
 .tarea .acciones .btn:first-of-type {
   margin-right: 1rem;
+}
+.tarea .acciones .btn:not(:last-of-type) {
+  margin-right: 15px;
 }
 .tarea .acciones .btn {
   border-radius: .5rem;
@@ -524,6 +551,7 @@ aside  {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .campo-formD {
@@ -532,7 +560,7 @@ aside  {
 
 .botonesD {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .btnD {
