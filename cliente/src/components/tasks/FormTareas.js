@@ -8,38 +8,53 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import Descripcion from './Descripcion';
 
 const FormTareas = () => {
-    
+
     // Extraer si un proyecto esta activo
     const proyectosContext = useContext(proyectoContext);
     const { proyecto } = proyectosContext;
 
     //obtener la funcion del context de tarea
     const tareasContext = useContext(tareaContext);
-    const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext; 
+    const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext;
 
     // State del Formulario
-    const [ tarea, guardarTarea ] = useState({
+    const [tarea, guardarTarea] = useState({
         nombre: '',
         texto: '',
-
     })
 
-    const [mostrarDescripcion, setMostrarDescripcion] = useState(false);
+    const [ descripcion, setDescripcion] = useState('');
 
-    const handleCloseDescripcion = (cerrar) => {      
+    /*
+    // Effect para que se agrege en descripcion, lo que voy escribiendo en el
+    useEffect(() => {
+        if (cambio) {
+            setDescripcion(cambio);
+        }
+    }, [cambio]);
+    */
+
+    const [mostrarDescripcion, setMostrarDescripcion] = useState(false);
+    
+    const handleCloseDescripcion = (cerrar, texto) => {
+        if (cerrar && texto) {
+            guardarTarea({
+                ...tarea,
+                texto: texto
+            });
+        }
         setMostrarDescripcion(false);
-        
     };
 
     const propsDescripcion = {
-        texto: tarea.texto,
         editar: true,
-        etiqueta: tarea.nombre
+        etiqueta: tarea.nombre,
+        onClose: handleCloseDescripcion,
     };
 
     // Effect que detecta si hay una tarea seleccionada
-    useEffect( () => {
-        if(tareaseleccionada !== null) {
+    useEffect(() => {
+        if (tareaseleccionada !== null) {
             guardarTarea(tareaseleccionada);
         } else {
             guardarTarea({
@@ -65,23 +80,26 @@ const FormTareas = () => {
     const handleChange = e => {
         guardarTarea({
             ...tarea,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
-    const onSubmit = e => {
+    // Funcion para el boton del formulario.
+    const handleSubmit = e => {
         e.preventDefault();
 
         //Validar
-        if(nombre.trim() === ''){
+        if (nombre.trim() === '') {
             validarTarea();
             return;
         }
+        // Actualizar el texto de la tarea en el modal
+        propsDescripcion.texto = tarea.texto;
 
         // Revisar si es edicion o nueva tarea
-        if(tareaseleccionada === null) {
-            // Pasar la validación, lo hice en la funcion agregarTarea(tarea), ahi volvi a poner el errortarea: false, para que este como su estado inicial 
-    
+        if (tareaseleccionada === null) {
+            // Pasar la validación, lo hice en la funcion agregarTarea(tarea), ahi volvi a poner el errortarea: false, para que este como su estado inicial
+
             // Agregar la nueva tarea al state de tareas, tambien le agrego las propiedades que yo quiera
             tarea.proyecto = proyectoActual._id;
             agregarTarea(tarea);
@@ -96,27 +114,22 @@ const FormTareas = () => {
         //obtener y filtrar las tareas del proyecto actual
         obtenerTareas(proyectoActual.id);
 
-        //reiniciar el form    
+        //reiniciar el form
         guardarTarea({
             nombre: '',
             texto: '',
         });
+    };
 
-    }
-    
-    
-    return ( 
+    return (
         <div className='formulario'>
-            <form
-                onSubmit={onSubmit}
-            >
+            <form onSubmit={handleSubmit}>
                 <div>
-                    {tareaseleccionada
-                        ?
+                    {tareaseleccionada ? (
                         <h3 className='tarea-action'>Editando Tarea</h3>
-                        :
+                    ) : (
                         <h3 className='tarea-action'>Crear nueva Tarea</h3>
-                    }                    
+                    )}
                 </div>
                 <div className='contenedor-imput'>
                     <input
@@ -128,45 +141,31 @@ const FormTareas = () => {
                         onChange={handleChange}
                     />
                 </div>
-    
                 <div className='contenedor-imput'>
                     <input
                         type='submit'
                         className='btn-primario-editar'
-                        value={tareaseleccionada 
-                                ?
-                                    "Editar" 
-                                :
-                                    "Agregar"
-                        }
+                        value={tareaseleccionada ? 'Editar' : 'Agregar'}
                     />
                 </div>
-    
                 <div className='contenedor-imput'>
-                    <button 
-                    type='button' 
-                    className='btn btn-desc' 
-                    onClick={() => setMostrarDescripcion(true)}
+                    <button
+                        type='button'
+                        className='btn btn-desc'
+                        onClick={() => setMostrarDescripcion(true)}
                     >
                         <FontAwesomeIcon icon={faEye} />Descripcion
                     </button>
                 </div>
-
-            {mostrarDescripcion && <Descripcion {...propsDescripcion} onClose={handleCloseDescripcion} />}
-
+                {mostrarDescripcion && <Descripcion 
+                    {...propsDescripcion} 
+                    onClose={handleCloseDescripcion} 
+                />}
             </form>
-    
-            {errortarea 
-                ? 
-                    <p className='mensaje error'>El nombre de la tarea es obligatorio</p> 
-                : 
-                    null
-            }
-
-
+            {errortarea ? <p className='mensaje error'>El nombre de la tarea es obligatorio</p> : null}
         </div>
     );
-}
+};
 
 export default FormTareas;
 

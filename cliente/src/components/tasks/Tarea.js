@@ -86,7 +86,11 @@ const Tarea = ({tarea}) => {
             {!tareaseleccionada ? (
                 <div className='acciones'>
 
-                    <button type='button' className='btn btn-desc' onClick={() => setMostrarDescripcion(true)}>
+                    <button 
+                      type='button' 
+                      className='btn btn-desc' 
+                      onClick={() => setMostrarDescripcion(true)}
+                    >
                         <FontAwesomeIcon icon={faEye} />
                     </button>
 
