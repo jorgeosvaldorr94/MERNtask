@@ -1,8 +1,85 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import proyectoContext from '../../context/proyectos/proyectoContext';
+import tareaContext from '../../context/tareas/tareaContext';
 import PropTypes from 'prop-types';
 
 const Descripcion = ({ etiqueta, onClose, editar, texto }) => {
+
+  // State para mostrar la Descripcion.
   const [descripcion, setDescripcion] = useState(texto);
+
+  // Extraer si un proyecto esta activo
+  const proyectosContext = useContext(proyectoContext);
+  const { proyecto } = proyectosContext;
+
+  //obtener la funcion del context de tarea
+  const tareasContext = useContext(tareaContext);
+  const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes realizar alguna acción con la descripción ingresada por el usuario, por ejemplo, enviarla al servidor.
+    // También puedes cerrar el cuadro de descripción aquí mismo, utilizando una función de callback enviada desde Tarea.js
+  };
+
+  const cerrar = () => {
+    onClose(false);
+  };
+
+  return (
+    <div className="overlay">
+      <div className="block-notas">
+        <div className="tituloD">{etiqueta}</div>
+        <form onSubmit={handleSubmit}>
+          <div className="campo-formD">
+            <label htmlFor="descripcion"></label>
+            <textarea
+              id="descripcion"
+              name="descripcion"
+              value={descripcion}
+              onChange={(e) => editar ? setDescripcion(e.target.value) : null}
+              disabled={!editar}
+            />
+          </div>
+          
+        </form>
+        <div className="campo-formD botonesD">
+          <button type="button" className="btnD btn-secundarioD" onClick={cerrar}>
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Descripcion.propTypes = {
+  etiqueta: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  editar: PropTypes.bool.isRequired,
+  texto: PropTypes.string.isRequired,
+};
+
+export default Descripcion;
+
+/*
+import React, { useContext, useState, useEffect } from 'react';
+import proyectoContext from '../../context/proyectos/proyectoContext';
+import tareaContext from '../../context/tareas/tareaContext';
+import PropTypes from 'prop-types';
+
+const Descripcion = ({ etiqueta, onClose, editar, texto }) => {
+
+  // State para mostrar la Descripcion.
+  const [descripcion, setDescripcion] = useState(texto);
+
+  // Extraer si un proyecto esta activo
+  const proyectosContext = useContext(proyectoContext);
+  const { proyecto } = proyectosContext;
+
+  //obtener la funcion del context de tarea
+  const tareasContext = useContext(tareaContext);
+  const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +139,7 @@ Descripcion.propTypes = {
 };
 
 export default Descripcion;
-
+*/
 /*
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';

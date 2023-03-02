@@ -6,6 +6,11 @@ const tareaSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    texto: {
+        type: String,
+        required: false,
+        trim: true
+    },
     estado: {
         type: Boolean,
         default: false

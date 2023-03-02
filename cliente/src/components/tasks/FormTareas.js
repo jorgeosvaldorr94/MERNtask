@@ -15,14 +15,27 @@ const FormTareas = () => {
 
     //obtener la funcion del context de tarea
     const tareasContext = useContext(tareaContext);
-    const { texto, tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext; 
+    const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext; 
 
     // State del Formulario
     const [ tarea, guardarTarea ] = useState({
-        nombre: ''
+        nombre: '',
+        texto: '',
+
     })
 
     const [mostrarDescripcion, setMostrarDescripcion] = useState(false);
+
+    const handleCloseDescripcion = (cerrar) => {      
+        setMostrarDescripcion(false);
+        
+    };
+
+    const propsDescripcion = {
+        texto: tarea.texto,
+        editar: true,
+        etiqueta: tarea.nombre
+    };
 
     // Effect que detecta si hay una tarea seleccionada
     useEffect( () => {
@@ -30,13 +43,17 @@ const FormTareas = () => {
             guardarTarea(tareaseleccionada);
         } else {
             guardarTarea({
-                nombre: ''
+                nombre: '',
+                texto: ''
             });
         }
     }, [tareaseleccionada]);
 
-    //extraer el nombre del proyecto
+    //extraer el nombre de la tarea del proyecto
     const { nombre } = tarea;
+
+    //extraer el nombre texto de la tarea del proyecto
+    const { texto } = tarea;
 
     //Si no hay proyecto seleccionado
     if (!proyecto) return null;
@@ -81,7 +98,8 @@ const FormTareas = () => {
 
         //reiniciar el form    
         guardarTarea({
-            nombre: ''
+            nombre: '',
+            texto: '',
         });
 
     }
@@ -130,9 +148,12 @@ const FormTareas = () => {
                     className='btn btn-desc' 
                     onClick={() => setMostrarDescripcion(true)}
                     >
-                        <FontAwesomeIcon icon={faEye} />
+                        <FontAwesomeIcon icon={faEye} />Descripcion
                     </button>
                 </div>
+
+            {mostrarDescripcion && <Descripcion {...propsDescripcion} onClose={handleCloseDescripcion} />}
+
             </form>
     
             {errortarea 
@@ -141,7 +162,8 @@ const FormTareas = () => {
                 : 
                     null
             }
-    
+
+
         </div>
     );
 }

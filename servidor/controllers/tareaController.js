@@ -86,9 +86,9 @@ exports.obtenerTareas = async ( req, res ) => {
 exports.actualizarTarea = async ( req, res ) => {
     try {
         // Que proyecto queremos exrtraer ?? 
-        // Extraer el proyecto y de la tarea en nombre y el estado.
+        // Extraer el proyecto y de la tarea el nombre, el estado y le texto.
         // 'proyecto' es el id del proyecto.
-        const { proyecto, nombre, estado } = req.body;
+        const { proyecto, nombre, estado, texto } = req.body;
         
         // Revisar si la tarea existe (por el id que le estamos pasando en 'put'.. router.put('/:id'...) es por ello que donde pasemos un id como parametro, que en este caso esta en la URL, lo extraemos de esta forma (req.params.id).
         let tarea = await Tarea.findById(req.params.id);      
@@ -115,6 +115,7 @@ exports.actualizarTarea = async ( req, res ) => {
         
         nuevaTarea.nombre = nombre;      
         nuevaTarea.estado = estado;
+        nuevaTarea.texto = texto;
         
         // Guardar la tarea
         tarea = await Tarea.findOneAndUpdate({ _id: req.params.id }, nuevaTarea, { new: true });

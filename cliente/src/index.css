@@ -174,7 +174,7 @@ a {
   color: var(--blanco);
 }
 .cerrar-sesion:hover {
-  font-size: 18px;
+  font-weight: 550;
   color: #ccc;
 }
 .btn-desc {

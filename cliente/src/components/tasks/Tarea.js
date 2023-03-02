@@ -62,8 +62,9 @@ const Tarea = ({tarea}) => {
     };
 
     const propsDescripcion = {
-        texto: 'Aqui iria la descripcion de la tarea',
-        editar: tareaseleccionada ? true : null
+        texto: tarea.texto,
+        editar: tareaseleccionada ? true : null,
+        etiqueta: tarea.nombre
     };
 
     return (

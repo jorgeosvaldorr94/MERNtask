@@ -19,7 +19,6 @@ const TareaState = props => {
         tareasProyecto: [],
         errortarea: false,
         tareaseleccionada: null,
-        texto: "",
     }
 
     //Crear el dispatch y el State
